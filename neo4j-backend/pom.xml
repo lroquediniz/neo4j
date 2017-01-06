@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<name>Simple Neo4j Rest Application</name>
+
+	<groupId>br.gov.mg.pmmg</groupId>
+	<artifactId>neo4j-backend</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+	
+	<inceptionYear>2016</inceptionYear>
+
+	<developers>
+		<developer>
+			<name>Luan Roque Diniz Braz</name>
+			<email>lroque.diniz@gmail.com</email>
+			<roles>
+				<role>Senior Developer</role>
+			</roles>
+		</developer>
+	</developers>
+	<properties>
+		<!-- Encode -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		
+		<!-- Java version -->
+		<version.java.compiler>1.8</version.java.compiler>
+		
+		<!-- Maven Reference: https://maven.apache.org/plugins/ -->
+		<maven.compiler.plugin>3.5.1</maven.compiler.plugin>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.dependency.plugin>2.10</maven.dependency.plugin>
+		<maven.surefire.plugin>2.19.1</maven.surefire.plugin>
+		<maven.processor.plugin>2.0.5</maven.processor.plugin>
+		<version.war.plugin>2.5</version.war.plugin>
+		
+		<!-- Neo4j ogm version -->
+		<neo4j-ogm.version>2.0.4</neo4j-ogm.version>
+
+		<!-- EJB configuration -->
+		<maven.ejb.plugin>2.5.1</maven.ejb.plugin>
+		<version.ejb>3.2</version.ejb>
+
+		<!-- WAR configuration -->
+		<maven.war.plugin>3.0.0</maven.war.plugin>
+
+		<!-- WildFly Application Server -->
+		<wildfly.maven.plugin>1.1.0.Alpha1</wildfly.maven.plugin>
+		<wildfly.server.version>10.0.0.Final</wildfly.server.version>
+		<wildfly.arquillian.container.embedded>2.0.0.Final</wildfly.arquillian.container.embedded>
+		<wildfly.local.home>/Users/cabb/java/server/wildfly-${jboss.wildfly.server.version}</wildfly.local.home>
+
+		<!-- Common dependencies -->
+
+		<!-- Test dependecies -->
+		<version.junit>4.12</version.junit>
+		<version.mockito.all>1.9.5</version.mockito.all>
+		<version.arquillian.bom>1.1.11.Final</version.arquillian.bom>
+		
+		<!-- Web dependencies -->
+		<version.javaee.api>7.0</version.javaee.api>
+		<version.gson>2.3.1</version.gson>
+		<version.jboss.javaee.web.7.0>1.0.2.Final</version.jboss.javaee.web.7.0>
+		<version.jboss.javaee.7.0>1.0.2.Final</version.jboss.javaee.7.0>
+		<version.jackson.core>2.8.5</version.jackson.core>
+	</properties>
+	<dependencyManagement>
+		<dependencies>
+			
+			<dependency>
+				<groupId>org.jboss.spec</groupId>
+				<artifactId>jboss-javaee-6.0</artifactId>
+				<version>3.0.3.Final</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>javax.servlet-api</artifactId>
+				<version>3.1.0</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>javax.ws.rs</groupId>
+				<artifactId>javax.ws.rs-api</artifactId>
+				<version>2.0</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>javax.enterprise</groupId>
+				<artifactId>cdi-api</artifactId>
+				<version>1.1</version>
+				<scope>provided</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	<dependencies>
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>javax.ws.rs-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.spec.javax.ejb</groupId>
+			<artifactId>jboss-ejb-api_3.1_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.neo4j</groupId>
+		    <artifactId>neo4j-ogm-core</artifactId>
+		    <version>${neo4j-ogm.version}</version>
+		</dependency>
+		
+		<dependency> <!-- If you're using the HTTP driver -->
+		    <groupId>org.neo4j</groupId>
+		    <artifactId>neo4j-ogm-http-driver</artifactId>
+		    <version>${neo4j-ogm.version}</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.neo4j.driver</groupId>
+		    <artifactId>neo4j-java-driver</artifactId>
+		    <version>1.0.6</version>
+		</dependency>
+
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
